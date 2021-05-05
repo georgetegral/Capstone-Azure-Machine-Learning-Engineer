@@ -33,8 +33,6 @@ This is the project workflow that was followed.
 ## Dataset
 
 ### Dataset Overview
-*TODO*: Explain about the data you are using and where you got it from.
-
 As explained before, the dataset is from the Mexican Government's General Directorate of Epidemiology COVID-19 Open Data. We are given a description for each column of the dataset in a dictionary, and the posible values for each column in catalogues.
 
 ### Data dictionary
@@ -49,10 +47,10 @@ As explained before, the dataset is from the Mexican Government's General Direct
 |7  |ENTIDAD_NAC            |(Entity of birth) Identifies the patient's birth entity (state).                     |[Entities catalogue](#Entities-catalogue)        |
 |8  |ENTIDAD_RES            |(Entity of residence) Identifies the entity (state) of residence of the patient.                      |[Entities catalogue](#Entities-catalogue)        |
 |9  |MUNICIPIO_RES          |(Municipality of residence) Identifies the municipality of residence of the patient.                     | *Catalogue has 2,500 rows and was not included for simplicity, but 997 = Does not apply, 998 = Ignored, 999 = Not specified       |
-|10 |TIPO_PACIENTE          |(Patient care type) Identifies the type of care the patient received in the unit. It is called an outpatient if you returned home or it is called an inpatient if you were admitted to the hospital.                      | 1 = Ambulatory, 2 = Hospitalized, 99 = Not specified    |
+|10 |TIPO_PACIENTE          |(Patient care type) Identifies the type of care the patient received in the unit. It is called ambulatory if the patient returned home or it is called hospitalized if it was admitted to the hospital.                      | 1 = Ambulatory, 2 = Hospitalized, 99 = Not specified    |
 |11 |FECHA_INGRESO          |(Date of entry) Identifies the date of admission of the patient to the care unit.                      |AAAA-MM-DD        |
 |12 |FECHA_SINTOMAS         |(Date of symptoms) Identifies the date on which the patient's symptoms began.                    |AAAA-MM-DD        |
-|13 |FECHA_DEF              |(Date of death) Identifies the date the patient died if it did.                      |AAAA-MM-DD        |
+|13 |FECHA_DEF              |(Date of death) Identifies the date the patient died if it did. If it did not die the date is displayed as 9999-99-99                      |AAAA-MM-DD        |
 |14 |INTUBADO               |(Intubated) Identifies if the patient required intubation.                      |[Yes-No catalogue](#Yes-No-catalogue)        |
 |15 |NEUMONIA               |(Pneumonia) Identifies if the patient was diagnosed with pneumonia.                     |[Yes-No catalogue](#Yes-No-catalogue)        |
 |16 |EDAD                   |(Age) Identifies the age of the patient                      | Numeric in years       |
