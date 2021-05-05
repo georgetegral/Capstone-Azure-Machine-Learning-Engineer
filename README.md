@@ -204,3 +204,4 @@ The CSV file with all the data is uploaded to the Datasets tab in Azure ML Studi
 ## References
 - [Mexican Government's General Directorate of Epidemiology COVID-19 Open Data](https://www.gob.mx/salud/documentos/datos-abiertos-152127)
 - [Udacity project starter files](https://github.com/udacity/nd00333-capstone/tree/master/starter_file)
+- [Azure Machine Learning SDK for Python](https://docs.microsoft.com/en-us/python/api/overview/azure/ml/?view=azure-ml-py)
