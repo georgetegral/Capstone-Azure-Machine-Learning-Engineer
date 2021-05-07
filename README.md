@@ -14,7 +14,7 @@
 
 This is the capstone project for the Udacity Machine Learning Engineer with Microsoft Azure.
 
-In this project I analize the Mexican Government's data for the COVID-19 pandemic from January of 2020 up until the 30th of April of 2021. From this data I intend to get a predictive model to analyze a person's probability to enter an Intensive Care Unit (ICU) based on their COVID-19 test result type, age, gender and comorbidities.
+In this project we analize the Mexican Government's data for the COVID-19 pandemic from January of 2020 up until the 8th of May of 2021. From this data we intend to get a predictive model to analyze if a patient will enter an Intensive Care Unit (ICU) or not, based on their COVID-19 test result type, age, gender and comorbidities.
 
 This is the project workflow that was followed.
 ![Capstone project diagram](images/capstone-diagram.png)
@@ -25,10 +25,13 @@ This is the project workflow that was followed.
 4. Train model using HyperDrive: Using the AzureML SDK for Python a Jupyter Notebook is created where a classification model using HyperDrive for hyperparameter optimization is trained.
 5. Compare model performance: The model with the best accuracy is selected for deployment.
 6. Deploy best model: The best model is deployed using Azure Container Instances, a functional endpoint is produced and logging is enabled with Application Insights.
-7. Test model endpoint: The endpoint is tested with Apache Benchmark.
+7. Test model endpoint: We test the model endpoint with test data.
 
 ## Project Set Up and Installation
-*OPTIONAL:* If your project has any special installation steps, this is where you should put it. To turn this project into a professional portfolio project, you are encouraged to explain how to set up this project in AzureML.
+Azure ML Studio already has all the libraries we need except for one, `imblearn`, this library helps us to balance our training sample by undersampling the class with more data, thus creating a balanced dataset. Before starting to run the notebooks please run the following command on the notebook or on the terminal:
+```Python
+pip install imblearn
+```
 
 ## Dataset
 
@@ -104,7 +107,7 @@ As explained before, the dataset is from the Mexican Government's General Direct
 |02	|BAJA CALIFORNIA|	BC|
 |03	|BAJA CALIFORNIA SUR|	BS|
 |04	|CAMPECHE	|CC|
-|05	|COAHUILA DE ZARAGOZA	|CL|
+|05	|COAHUILA	|CL|
 |06	|COLIMA	|CM|
 |07	|CHIAPAS	|CS|
 |08	|CHIHUAHUA	|CH|
@@ -167,10 +170,12 @@ As explained before, the dataset is from the Mexican Government's General Direct
 |7    | NEGATIVE TO SARS-COV-2 | "Negative applies when the case: 1. A laboratory sample was taken and it was: negative for SARS-COV-2 or positive for any other respiratory virus (Influenza, RSV, Bocavirus, others) regardless of whether this case has a clinical-epidemiological association or opinion to COVID-19. 2. An antigenic sample was taken that was negative for SARS-COV-2 and the case was not taken from a laboratory sample or confirmed by epidemiological association or by clinical epidemiological opinion. " |
 
 ### Task
-*TODO*: Explain the task you are going to be solving with this dataset and the features you will be using for it.
+With this dataset we intend to predict if a patient will enter an Intensive Care Unit based on their risk factors, age, gender and COVID-19 test result type.
+
+Our objective variable or `y` is the `UCI` column, which indicates if the patient entered an Intensive Care Unit, while our `X` is the rest of the columns.
 
 ### Access
-The CSV file with all the data is uploaded to the Datasets tab in Azure ML Studio, there it can be accessed to the required Jupyter Notebooks.
+The CSV file with all the data is uploaded to the Datasets tab in Azure ML Studio, there it can be accessed by the required Jupyter Notebooks.
 
 ## Automated ML
 *TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
