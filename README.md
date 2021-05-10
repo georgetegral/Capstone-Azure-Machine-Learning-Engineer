@@ -279,6 +279,11 @@ policy = BanditPolicy(slack_factor = 0.1, evaluation_interval=1, delay_evaluatio
 ## Model Deployment
 *TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
 
+To deploy the model we need the following:
+- A trained model.
+- Inference configuration, with entry script and environment dependencies.
+- Deployment configuration with Azure Container Instances.
+
 ## Screen Recording
 *TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
 - A working model
