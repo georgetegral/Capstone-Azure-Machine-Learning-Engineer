@@ -14,16 +14,16 @@
 
 This is the capstone project for the Udacity Machine Learning Engineer with Microsoft Azure.
 
-In this project we analize the Mexican Government's data for the COVID-19 pandemic from January of 2020 up until the 8th of May of 2021. From this data we intend to get a predictive model to analyze if a patient will enter an Intensive Care Unit (ICU) or not, based on their COVID-19 test result type, age, gender and comorbidities.
+In this project we analize the Mexican Government's data for the COVID-19 pandemic from January of 2020 up until the 10th of May of 2021. From this data we intend to get a predictive model to analyze if a patient will enter an Intensive Care Unit (ICU) or not, based on their COVID-19 test result type, age, gender and comorbidities.
 
 This is the project workflow that was followed.
 ![Capstone project diagram](images/capstone-diagram.png)
 
 1. Choose a dataset: The dataset chosen for the project is the Mexican Government's General Directorate of Epidemiology COVID-19 Open Data. Available to download in the following URL: https://www.gob.mx/salud/documentos/datos-abiertos-152127
 2. Import Dataset into workspace: The dataset in CSV format is registered in the Datasets tab in Azure ML Studio to be used for training.
-3. Train model using Automated ML: Using the AzureML SDK for Python a Jupyter Notebook is created where a classification model using AutoML is trained, and the best one is selected.
-4. Train model using HyperDrive: Using the AzureML SDK for Python a Jupyter Notebook is created where a classification model using HyperDrive for hyperparameter optimization is trained.
-5. Compare model performance: The model with the best accuracy is selected for deployment.
+3. Train model using Automated ML: Using the AzureML SDK for Python a Jupyter Notebook is created where a classification model using AutoML is trained, and the one with the most accuracy is selected.
+4. Train model using HyperDrive: Using the AzureML SDK for Python a Jupyter Notebook is created where a classification model using HyperDrive for hyperparameter optimization is trained and the model with the most accuracy is selected.
+5. Compare model performance: The two models are compared and the one with the best accuracy is selected for deployment.
 6. Deploy best model: The best model is deployed using Azure Container Instances, a functional endpoint is produced and logging is enabled with Application Insights.
 7. Test model endpoint: We test the model endpoint with test data.
 
@@ -32,6 +32,8 @@ Azure ML Studio already has all the libraries we need except for one, `imblearn`
 ```Python
 pip install imblearn
 ```
+
+We will also need the CSV file with the data which can be downloaded in the URL previously mentioned, this file is aroun 1 GB in size, so please start the download in advance.
 
 ## Dataset
 
@@ -170,15 +172,35 @@ As explained before, the dataset is from the Mexican Government's General Direct
 |7    | NEGATIVE TO SARS-COV-2 | "Negative applies when the case: 1. A laboratory sample was taken and it was: negative for SARS-COV-2 or positive for any other respiratory virus (Influenza, RSV, Bocavirus, others) regardless of whether this case has a clinical-epidemiological association or opinion to COVID-19. 2. An antigenic sample was taken that was negative for SARS-COV-2 and the case was not taken from a laboratory sample or confirmed by epidemiological association or by clinical epidemiological opinion. " |
 
 ### Task
-With this dataset we intend to predict if a patient will enter an Intensive Care Unit based on their risk factors, age, gender and COVID-19 test result type.
+With this dataset we intend to predict if a patient will enter an Intensive Care Unit based ONLY on their risk factors, age, gender and COVID-19 test result type.
 
-Our objective variable or `y` is the `UCI` column, which indicates if the patient entered an Intensive Care Unit, while our `X` is the rest of the columns.
+We will not be using all of the dataset, we will define the following features:
+- SEXO
+- EDAD
+- NEUMONIA
+- DIABETES
+- EPOC
+- ASMA 
+- INMUSUPR
+- HIPERTENSION
+- OTRA_COM
+- CARDIOVASCULAR
+- OBESIDAD
+- RENAL_CRONICA
+- TABAQUISMO
+- RESULTADO_LAB
+
+Our objective variable or `y` is the `UCI` column, which indicates if the patient entered an Intensive Care Unit, while our `X` is the features we just defined.
 
 ### Access
-The CSV file with all the data is uploaded to the Datasets tab in Azure ML Studio, there it can be accessed by the required Jupyter Notebooks.
+The file with Mexico's COVID-19 data is open to the public for download.
+
+This file with all the data is uploaded to the Datasets tab in Azure ML Studio, there it can be accessed by the required Jupyter Notebooks.
+
+Important note: By running the `automl.ipynb` notebook the `traindata.csv` file will be generated, this file is the clean dataset with only the features we need and the Yes/No classes for `y`, and it is also balanced. This file is used in the `train.py` script.
 
 ## Automated ML
-*TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
+This is an overview of the `automl` settings and configuration we used for this experiment
 
 ### Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
@@ -210,3 +232,4 @@ The CSV file with all the data is uploaded to the Datasets tab in Azure ML Studi
 - [Mexican Government's General Directorate of Epidemiology COVID-19 Open Data](https://www.gob.mx/salud/documentos/datos-abiertos-152127)
 - [Udacity project starter files](https://github.com/udacity/nd00333-capstone/tree/master/starter_file)
 - [Azure Machine Learning SDK for Python](https://docs.microsoft.com/en-us/python/api/overview/azure/ml/?view=azure-ml-py)
+- [imblearn RandomUnderSampler class](https://imbalanced-learn.org/dev/references/generated/imblearn.under_sampling.RandomUnderSampler.html)
