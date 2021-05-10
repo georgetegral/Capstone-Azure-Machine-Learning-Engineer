@@ -13,6 +13,11 @@
     * [Task](#Task)
     * [Access](#Access)
 * [Automated ML](#Automated-ML)
+    * [AutoML Results](#AutoML-Results)
+    * [Possible Impromevents for AutoML](#Possible-Impromevents-for-AutoML)
+* [Hyperparameter Tuning](#Hyperparameter-Tuning)
+    * [Hyperdrive Results](#Hyperdrive-Results)
+    * [Possible Improvements for Hyperdrive](#Possible-Improvements-for-Hyperdrive)
 ## Overview
 
 This is the capstone project for the Udacity Machine Learning Engineer with Microsoft Azure.
@@ -218,19 +223,58 @@ enable_early_stopping |Whether to enable early termination if the score is not i
 featurization |'auto' / 'off' / FeaturizationConfig Indicator for whether featurization step should be done automatically or not, or whether customized featurization should be used. | auto
 debug_log | The log file to write debug information to. | automl_errors.log
 
-### Results
+### AutoML Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
 
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
 
+In our experiment we found that `VotingEnsemble` was the model with the most accuracy, with `0.6420`
+
+The parameters for this model are described in the table below:
+
+
+### Possible Impromevents for AutoML
+
+1. We could use a different primary metric as in some cases accuracy is not the best metric for all problems.
+2. Adding cross validations to the AutoML configuration may reduce the bias in the model, even though the training data is already balanced.
+
+
 ## Hyperparameter Tuning
 *TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
 
+For this experiment we use logistic regression from the SKlearn framework with HyperDrive and hyperparameter tuning. There are two hyperparameters for this experiment:
 
-### Results
+- C: The inverse regularization strength.
+- Max_iter: The maximum iteration to converge for the SKLearn Logistic Regression.
+
+For sampling we defined RandomParameterSampling, this defines random sampling over a hyperparameter search space. RandomParameterSampling is one of the choices available for the sampler, it was chosen because it supports early termination of low-performance runs, with this sampler we are still able to find reasonably good models when compared to other sampler policies such as GridParameterSampling or BayesianParameterSampling that exhaustively searches over all the hyperparameter space.
+
+The parameter search space used for C is `[0.01, 0.1, 1]` and for max_iter is `[20, 40, 60, 80, 100, 120, 140, 160, 180, 200]`
+
+The benchmark metric is accuracy.
+
+The early stopping policy is used to stop poorly performing runs. Specifically, the BanditPolicy cuts more runs than other early stopping policies, that's why it was chosen.
+
+It was run with the following configuration parameters:
+```Python
+policy = BanditPolicy(slack_factor = 0.1, evaluation_interval=1, delay_evaluation=5)
+```
+
+- slack_factor: The ammount specifies the allowable slack as a ratio, in the run with the highest accuracy.
+- evaluation_interval: The frequency for applying the policy. It counts as one interval for each log of the primary metric by the script.
+- delay_evaluation: For the a specified number of intervals delays the first policy evaluation.
+
+### Hyperdrive Results
 *TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
 
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
+
+### Possible Improvements for Hyperdrive
+
+1. Use BayesianParameterSampling instead of RandomParameterSampling, Bayesian sampling is based on the Bayesian optimization algorithm and makes intelligent choices on the hyperparameter values to sample next. It picks the sample based on how the previous samples performed, such that the new sample improves the reported primary metric.
+2. Add more values for regularization strength.
+3. We could use another metric that is not accuracy, as sometimes it is not the best primary metric for a model.
+4. Increasing maximum total runs to test more combinations of hyperparameters, even though this would mean more training time.
 
 ## Model Deployment
 *TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
@@ -250,3 +294,8 @@ debug_log | The log file to write debug information to. | automl_errors.log
 - [Azure Machine Learning SDK for Python](https://docs.microsoft.com/en-us/python/api/overview/azure/ml/?view=azure-ml-py)
 - [imblearn RandomUnderSampler class](https://imbalanced-learn.org/dev/references/generated/imblearn.under_sampling.RandomUnderSampler.html)
 - [AutoML Config class data](https://docs.microsoft.com/en-us/python/api/azureml-train-automl-client/azureml.train.automl.automlconfig.automlconfig?view=azure-ml-py)
+- [Random Parameter Sampling Class](https://docs.microsoft.com/en-us/python/api/azureml-train-core/azureml.train.hyperdrive.randomparametersampling?view=azure-ml-py)
+- [Hyperparameter tuning a model with Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters)
+- [Exam DP-100 Topic 4 Question 36 Discussion](https://www.examtopics.com/discussions/microsoft/view/36687-exam-dp-100-topic-4-question-36-discussion/)
+- [Azure bandit_policy documentation](https://www.rdocumentation.org/packages/azuremlsdk/versions/1.10.0/topics/bandit_policy)
+- [Define Bayesian sampling over a hyperparameter search space](https://azure.github.io/azureml-sdk-for-r/reference/bayesian_parameter_sampling.html)
