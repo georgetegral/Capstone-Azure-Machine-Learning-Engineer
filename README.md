@@ -18,11 +18,15 @@
 * [Hyperparameter Tuning](#Hyperparameter-Tuning)
     * [Hyperdrive Results](#Hyperdrive-Results)
     * [Possible Improvements for Hyperdrive](#Possible-Improvements-for-Hyperdrive)
+* [Model Deployment](#Model-Deployment)
+* [Screen Recording](#Screen-Recording)
+* [Standout Suggestions](#Standout-Suggestions)
+* [References](#References)
 ## Overview
 
 This is the capstone project for the Udacity Machine Learning Engineer with Microsoft Azure.
 
-In this project we analize the Mexican Government's data for the COVID-19 pandemic from January of 2020 up until the 10th of May of 2021. From this data we intend to get a predictive model to analyze if a patient will enter an Intensive Care Unit (ICU) or not, based on their COVID-19 test result type, age, gender and comorbidities.
+In this project we analize the Mexican Government's data for the COVID-19 pandemic from January of 2020 up until the 9th of May of 2021. From this data we intend to get a predictive model to analyze if a patient will enter an Intensive Care Unit (ICU) or not, based on their COVID-19 test result type, age, gender and comorbidities.
 
 This is the project workflow that was followed.
 ![Capstone project diagram](images/capstone-diagram.png)
@@ -283,6 +287,19 @@ To deploy the model we need the following:
 - A trained model.
 - Inference configuration, with entry script and environment dependencies.
 - Deployment configuration with Azure Container Instances.
+
+A scoring script is generated when a model is created. This describes the input data that model will expect and passes it to the model for prediction, and then it returns the results.
+
+The environment can be retrieved by using the `best_run.get_environment()`
+
+For deployment we will use Azure Container Instances with the following configuration:
+
+- cpu_cores = 1
+- memory_gb = 1
+- auth_enabled = True
+- enable_app_insights = True
+- tags = `{'name':'Covid 19 ICU Prediction'}`
+- description='Covid 19 ICU Prediction Model'
 
 ## Screen Recording
 *TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
