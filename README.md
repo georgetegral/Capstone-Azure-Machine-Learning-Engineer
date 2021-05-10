@@ -10,6 +10,9 @@
     * [Yes-No catalogue](#Yes-No-catalogue)
     * [Laboratory result catalogue](#Laboratory-result-catalogue)
     * [Final Classification catalogue](#Final-Classification-catalogue)
+    * [Task](#Task)
+    * [Access](#Access)
+* [Automated ML](#Automated-ML)
 ## Overview
 
 This is the capstone project for the Udacity Machine Learning Engineer with Microsoft Azure.
@@ -200,7 +203,20 @@ This file with all the data is uploaded to the Datasets tab in Azure ML Studio, 
 Important note: By running the `automl.ipynb` notebook the `traindata.csv` file will be generated, this file is the clean dataset with only the features we need and the Yes/No classes for `y`, and it is also balanced. This file is used in the `train.py` script.
 
 ## Automated ML
-This is an overview of the `automl` settings and configuration we used for this experiment
+This is an overview of the `automl` settings and configuration we used for this experiment.
+
+Configuration | Description | Value
+------------- | ----------- | -----
+experiment_timeout_minutes | Maximum amount of time in minutes that all iterations combined can take before the experiment terminates.  | 60
+max_concurrent_iterations | Represents the maximum number of iterations that would be executed in parallel. The default value is 1. | 5
+primary_metric | The metric that Automated Machine Learning will optimize for model selection. | accuracy
+compute_target | The Azure Machine Learning compute target to run the Automated Machine Learning experiment on. | cpu-cluster
+task | The type of task to run. Values can be 'classification', 'regression', or 'forecasting' depending on the type of automated ML problem to solve. | classification
+training_data | The training data to be used within the experiment. It should contain both training features and a label column (optionally a sample weights column). If training_data is specified, then the label_column_name parameter must also be specified. | train_data
+label_column_name | The name of the label column. | UCI
+enable_early_stopping |Whether to enable early termination if the score is not improving in the short term.  | True
+featurization |'auto' / 'off' / FeaturizationConfig Indicator for whether featurization step should be done automatically or not, or whether customized featurization should be used. | auto
+debug_log | The log file to write debug information to. | automl_errors.log
 
 ### Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
@@ -233,3 +249,4 @@ This is an overview of the `automl` settings and configuration we used for this 
 - [Udacity project starter files](https://github.com/udacity/nd00333-capstone/tree/master/starter_file)
 - [Azure Machine Learning SDK for Python](https://docs.microsoft.com/en-us/python/api/overview/azure/ml/?view=azure-ml-py)
 - [imblearn RandomUnderSampler class](https://imbalanced-learn.org/dev/references/generated/imblearn.under_sampling.RandomUnderSampler.html)
+- [AutoML Config class data](https://docs.microsoft.com/en-us/python/api/azureml-train-automl-client/azureml.train.automl.automlconfig.automlconfig?view=azure-ml-py)
