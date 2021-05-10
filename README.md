@@ -232,7 +232,7 @@ debug_log | The log file to write debug information to. | automl_errors.log
 
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
 
-In our experiment we found that `VotingEnsemble` was the model with the most accuracy, with `0.6420`
+In our experiment we found that `VotingEnsemble` was the model with the most accuracy, with `0.6465`
 
 The parameters for this model are described in the table below:
 
