@@ -298,7 +298,6 @@ For deployment we will use Azure Container Instances with the following configur
 - memory_gb = 1
 - auth_enabled = True
 - enable_app_insights = True
-- tags = `{'name':'Covid 19 ICU Prediction'}`
 - description='Covid 19 ICU Prediction Model'
 
 ## Screen Recording
