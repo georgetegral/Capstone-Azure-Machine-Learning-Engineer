@@ -19,6 +19,7 @@
     * [Hyperdrive Results](#Hyperdrive-Results)
     * [Possible Improvements for Hyperdrive](#Possible-Improvements-for-Hyperdrive)
 * [Model Deployment](#Model-Deployment)
+* [Model Consumption](#Model-Consumption)
 * [Screen Recording](#Screen-Recording)
 * [Future Work](#Future-Work)
 * [References](#References)
@@ -764,6 +765,19 @@ We can also see the endpoint in Azure ML Studio, with it's configuration and con
 ![Model Deployment 7](images/12-model-deployment-7.png)
 
 ## Model Consumption
+
+We can use the `requests` library along with `json` to consume the endpoint, providing we have the URL and an Access Key like we do in the notebook.
+
+To consume the enpoint in Python use the following code:
+```Python
+import requests
+
+# Set the content type
+headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ service.get_keys()[0])}
+
+response = requests.post(service.scoring_uri, test_sample, headers=headers)
+print(response.text)
+```
 
 In this screenshots we can see the model consumption with Python SDK.
 
