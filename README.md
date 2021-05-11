@@ -20,15 +20,15 @@
     * [Possible Improvements for Hyperdrive](#Possible-Improvements-for-Hyperdrive)
 * [Model Deployment](#Model-Deployment)
 * [Screen Recording](#Screen-Recording)
-* [Standout Suggestions](#Standout-Suggestions)
 * [References](#References)
 ## Overview
 
 This is the capstone project for the Udacity Machine Learning Engineer with Microsoft Azure.
 
-In this project we analize the Mexican Government's data for the COVID-19 pandemic from January of 2020 up until the 9th of May of 2021. From this data we intend to get a predictive model to analyze if a patient will enter an Intensive Care Unit (ICU) or not, based on their COVID-19 test result type, age, gender and comorbidities.
+In this project we analize the Mexican Government's data for the COVID-19 pandemic from January of 2020 up until the 10th of May of 2021. From this data we intend to get a predictive model to analyze if a patient will enter an Intensive Care Unit (ICU) or not, based on their COVID-19 lab test result, age, gender and comorbidities.
 
 This is the project workflow that was followed.
+
 ![Capstone project diagram](images/capstone-diagram.png)
 
 1. Choose a dataset: The dataset chosen for the project is the Mexican Government's General Directorate of Epidemiology COVID-19 Open Data. Available to download in the following URL: https://www.gob.mx/salud/documentos/datos-abiertos-152127
@@ -40,12 +40,18 @@ This is the project workflow that was followed.
 7. Test model endpoint: We test the model endpoint with test data.
 
 ## Project Set Up and Installation
-Azure ML Studio already has all the libraries we need except for one, `imblearn`, this library helps us to balance our training sample by undersampling the class with more data, thus creating a balanced dataset. Before starting to run the notebooks please run the following command on the notebook or on the terminal:
+Azure ML Studio already has all the libraries we need except for two, `imblearn` and `azureml-train-automl-runtime`, `imblearn` library helps us to balance our training sample by undersampling the class with more data, thus creating a balanced dataset. Before starting to run the notebooks please run the following command on the notebook or on the terminal:
 ```Python
 pip install imblearn
 ```
 
-We will also need the CSV file with the data which can be downloaded in the URL previously mentioned, this file is aroun 1 GB in size, so please start the download in advance.
+We will also need to update some libraries already present in AzureML, please run the following commands:
+```Python
+pip install azureml-train-automl-runtime
+pip install --upgrade azureml-sdk[notebooks,contrib,automl] azureml-widgets
+pip install --upgrade scikit-learn
+```
+We will also need the CSV file with the data which can be downloaded in the URL previously mentioned, this file is around 1 GB in size, so please start the download in advance.
 
 ## Dataset
 
@@ -209,14 +215,14 @@ The file with Mexico's COVID-19 data is open to the public for download.
 
 This file with all the data is uploaded to the Datasets tab in Azure ML Studio, there it can be accessed by the required Jupyter Notebooks.
 
-Important note: By running the `automl.ipynb` notebook the `traindata.csv` file will be generated, this file is the clean dataset with only the features we need and the Yes/No classes for `y`, and it is also balanced. This file is used in the `train.py` script.
+Important note: By running the `automl.ipynb` notebook the `traindata.csv` file will be generated, this file is the clean dataset with only the features we need and the Yes/No classes for `y`, and it is also balanced. This file is used in the `train.py` script and is available in this Github repo.
 
 ## Automated ML
 This is an overview of the `automl` settings and configuration we used for this experiment.
 
 Configuration | Description | Value
 ------------- | ----------- | -----
-experiment_timeout_minutes | Maximum amount of time in minutes that all iterations combined can take before the experiment terminates.  | 60
+experiment_timeout_minutes | Maximum amount of time in minutes that all iterations combined can take before the experiment terminates.  | 30
 max_concurrent_iterations | Represents the maximum number of iterations that would be executed in parallel. The default value is 1. | 5
 primary_metric | The metric that Automated Machine Learning will optimize for model selection. | accuracy
 compute_target | The Azure Machine Learning compute target to run the Automated Machine Learning experiment on. | cpu-cluster
@@ -301,13 +307,13 @@ For deployment we will use Azure Container Instances with the following configur
 - description='Covid 19 ICU Prediction Model'
 
 ## Screen Recording
-*TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
+This recording demostrates:
+
 - A working model
 - Demo of the deployed  model
 - Demo of a sample request sent to the endpoint and its response
 
-## Standout Suggestions
-*TODO (Optional):* This is where you can provide information about any standout suggestions that you have attempted.
+The recording is available from this URL: https://youtu.be/rrCruXYm6J4
 
 ## References
 - [Mexican Government's General Directorate of Epidemiology COVID-19 Open Data](https://www.gob.mx/salud/documentos/datos-abiertos-152127)
@@ -320,3 +326,4 @@ For deployment we will use Azure Container Instances with the following configur
 - [Exam DP-100 Topic 4 Question 36 Discussion](https://www.examtopics.com/discussions/microsoft/view/36687-exam-dp-100-topic-4-question-36-discussion/)
 - [Azure bandit_policy documentation](https://www.rdocumentation.org/packages/azuremlsdk/versions/1.10.0/topics/bandit_policy)
 - [Define Bayesian sampling over a hyperparameter search space](https://azure.github.io/azureml-sdk-for-r/reference/bayesian_parameter_sampling.html)
+- [pprint library](https://docs.python.org/3/library/pprint.html)
