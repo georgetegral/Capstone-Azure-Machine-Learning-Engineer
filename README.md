@@ -1,4 +1,4 @@
-# Udacity Machine Learning Engineer with Microsoft Azure Capstone Project
+# COVID-19 Intensive Care Unit Predictive ML Model
 
 ## Table of Contents
 * [Overview](#Overview)
