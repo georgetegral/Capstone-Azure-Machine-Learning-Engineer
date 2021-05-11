@@ -178,7 +178,7 @@ As explained before, the dataset is from the Mexican Government's General Direct
 |4    |Unsuitable result       |
 |97   |Does not apply (case without sample)       |
 
-## Final Classification catalogue
+### Final Classification catalogue
 | Key | Value | Description
 |-----|-------|-----|
 |1    | COVID-19 CASE CONFIRMED BY EPIDEMIOLOGICAL CLINICAL ASSOCIATION | "Confirmed by association applies when the case reported being a positive contact for COVID-19 (and this is registered in SISVER) and: The case was not sampled or the sample was invalid. " |
@@ -233,21 +233,431 @@ enable_early_stopping |Whether to enable early termination if the score is not i
 featurization |'auto' / 'off' / FeaturizationConfig Indicator for whether featurization step should be done automatically or not, or whether customized featurization should be used. | auto
 debug_log | The log file to write debug information to. | automl_errors.log
 
+This screenshot shows the configuration in the notebook.
+![Automl configuration](images/1-automl-configuration.png)
+
 ### AutoML Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
 
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
 
-In our experiment we found that `VotingEnsemble` was the model with the most accuracy, with `0.6465`
+In our experiment we found that `VotingEnsemble` was the model with the most accuracy, with `0.6459`
 
-The parameters for this model are described in the table below:
+The following screenshots are from the results from the experiment run:
+![Automl results 1](images/2-automl-results-1.png)
 
+![Automl results 2](images/3-automl-results-2.png)
+
+![Automl results 3](images/4-automl-results-3.png)
+
+In this two screenshots we can see the feature importance from our AutoML model, we can see the 4 most important features are:
+
+1. NEUMONIA (Pneumonia)
+2. RESULTADO_LAB (Lab Result)
+3. EDAD (Age)
+4. OBESIDAD (Obesity)
+
+![Automl results 4](images/4-automl-results-4.png)
+
+![Automl results 5](images/4-automl-results-5.png)
+
+In the screenshots below we can see the result of the RunDetails widget:
+
+![Automl rundetails 1](images/5-automl-rundetails-1.png)
+
+![Automl rundetails 2](images/5-automl-rundetails-2.png)
+
+![Automl rundetails 3](images/5-automl-rundetails-3.png)
+
+![Automl rundetails 4](images/5-automl-rundetails-4.png)
+
+![Automl rundetails 5](images/5-automl-rundetails-5.png)
+
+![Automl rundetails 6](images/5-automl-rundetails-6.png)
+
+![Automl rundetails 7](images/5-automl-rundetails-7.png)
+
+This are the metrics for the best run.
+
+![Automl metrics](images/6-automl-metrics.png)
+
+The details of the parameters for this model are described below:
+```Python
+datatransformer
+{'enable_dnn': False,
+ 'enable_feature_sweeping': True,
+ 'feature_sweeping_config': {},
+ 'feature_sweeping_timeout': 86400,
+ 'featurization_config': None,
+ 'force_text_dnn': False,
+ 'is_cross_validation': False,
+ 'is_onnx_compatible': False,
+ 'observer': None,
+ 'task': 'classification',
+ 'working_dir': '/mnt/batch/tasks/shared/LS_root/mounts/clusters/notebook144503/code/Users/odl_user_144503'}
+
+prefittedsoftvotingclassifier
+{'estimators': ['1', '0', '10', '9', '7', '25', '31', '33', '24', '29'],
+ 'weights': [0.07692307692307693,
+             0.15384615384615385,
+             0.07692307692307693,
+             0.07692307692307693,
+             0.15384615384615385,
+             0.15384615384615385,
+             0.07692307692307693,
+             0.07692307692307693,
+             0.07692307692307693,
+             0.07692307692307693]}
+
+1 - maxabsscaler
+{'copy': True}
+
+1 - xgboostclassifier
+{'base_score': 0.5,
+ 'booster': 'gbtree',
+ 'colsample_bylevel': 1,
+ 'colsample_bynode': 1,
+ 'colsample_bytree': 1,
+ 'gamma': 0,
+ 'learning_rate': 0.1,
+ 'max_delta_step': 0,
+ 'max_depth': 3,
+ 'min_child_weight': 1,
+ 'missing': nan,
+ 'n_estimators': 100,
+ 'n_jobs': 1,
+ 'nthread': None,
+ 'objective': 'binary:logistic',
+ 'random_state': 0,
+ 'reg_alpha': 0,
+ 'reg_lambda': 1,
+ 'scale_pos_weight': 1,
+ 'seed': None,
+ 'silent': None,
+ 'subsample': 1,
+ 'tree_method': 'auto',
+ 'verbose': -10,
+ 'verbosity': 0}
+
+0 - maxabsscaler
+{'copy': True}
+
+0 - lightgbmclassifier
+{'n_jobs': 1,
+ 'problem_info': ProblemInfo(
+    dataset_samples=79088,
+    dataset_features=38,
+    dataset_classes=2,
+    dataset_num_categorical=0,
+    dataset_categoricals=None,
+    pipeline_categoricals=None,
+    dataset_y_std=None,
+    dataset_uid=None,
+    subsampling=False,
+    task='classification',
+    metric=None,
+    num_threads=1,
+    pipeline_profile='none',
+    is_sparse=True,
+    runtime_constraints={'mem_in_mb': None, 'wall_time_in_s': None, 'total_wall_time_in_s': 31449600, 'cpu_time_in_s': None, 'num_processes': None, 'grace_period_in_s': None},
+    constraint_mode=1,
+    cost_mode=1,
+    training_percent=None,
+    num_recommendations=1,
+    model_names_whitelisted=None,
+    model_names_blacklisted=None,
+    kernel='linear',
+    subsampling_treatment='linear',
+    subsampling_schedule='hyperband_clip',
+    cost_mode_param=None,
+    iteration_timeout_mode=0,
+    iteration_timeout_param=None,
+    feature_column_names=None,
+    label_column_name=None,
+    weight_column_name=None,
+    cv_split_column_names=None,
+    enable_streaming=None,
+    timeseries_param_dict=None,
+    gpu_training_param_dict={'processing_unit_type': 'cpu'}
+),
+ 'random_state': None}
+
+10 - sparsenormalizer
+{'copy': True, 'norm': 'l1'}
+
+10 - xgboostclassifier
+{'base_score': 0.5,
+ 'booster': 'gbtree',
+ 'colsample_bylevel': 1,
+ 'colsample_bynode': 1,
+ 'colsample_bytree': 0.7,
+ 'eta': 0.2,
+ 'gamma': 0,
+ 'learning_rate': 0.1,
+ 'max_delta_step': 0,
+ 'max_depth': 7,
+ 'max_leaves': 31,
+ 'min_child_weight': 1,
+ 'missing': nan,
+ 'n_estimators': 10,
+ 'n_jobs': 1,
+ 'nthread': None,
+ 'objective': 'reg:logistic',
+ 'random_state': 0,
+ 'reg_alpha': 0,
+ 'reg_lambda': 0.625,
+ 'scale_pos_weight': 1,
+ 'seed': None,
+ 'silent': None,
+ 'subsample': 1,
+ 'tree_method': 'auto',
+ 'verbose': -10,
+ 'verbosity': 0}
+
+9 - sparsenormalizer
+{'copy': True, 'norm': 'max'}
+
+9 - xgboostclassifier
+{'base_score': 0.5,
+ 'booster': 'gbtree',
+ 'colsample_bylevel': 1,
+ 'colsample_bynode': 1,
+ 'colsample_bytree': 0.7,
+ 'eta': 0.001,
+ 'gamma': 0,
+ 'learning_rate': 0.1,
+ 'max_delta_step': 0,
+ 'max_depth': 4,
+ 'max_leaves': 7,
+ 'min_child_weight': 1,
+ 'missing': nan,
+ 'n_estimators': 100,
+ 'n_jobs': 1,
+ 'nthread': None,
+ 'objective': 'reg:logistic',
+ 'random_state': 0,
+ 'reg_alpha': 0.3125,
+ 'reg_lambda': 1.875,
+ 'scale_pos_weight': 1,
+ 'seed': None,
+ 'silent': None,
+ 'subsample': 1,
+ 'tree_method': 'auto',
+ 'verbose': -10,
+ 'verbosity': 0}
+
+7 - sparsenormalizer
+{'copy': True, 'norm': 'l2'}
+
+7 - xgboostclassifier
+{'base_score': 0.5,
+ 'booster': 'gbtree',
+ 'colsample_bylevel': 1,
+ 'colsample_bynode': 1,
+ 'colsample_bytree': 0.9,
+ 'eta': 0.3,
+ 'gamma': 0,
+ 'learning_rate': 0.1,
+ 'max_delta_step': 0,
+ 'max_depth': 9,
+ 'max_leaves': 0,
+ 'min_child_weight': 1,
+ 'missing': nan,
+ 'n_estimators': 25,
+ 'n_jobs': 1,
+ 'nthread': None,
+ 'objective': 'reg:logistic',
+ 'random_state': 0,
+ 'reg_alpha': 0,
+ 'reg_lambda': 0.7291666666666667,
+ 'scale_pos_weight': 1,
+ 'seed': None,
+ 'silent': None,
+ 'subsample': 0.9,
+ 'tree_method': 'auto',
+ 'verbose': -10,
+ 'verbosity': 0}
+
+25 - standardscalerwrapper
+{'class_name': 'StandardScaler',
+ 'copy': True,
+ 'module_name': 'sklearn.preprocessing._data',
+ 'with_mean': False,
+ 'with_std': False}
+
+25 - xgboostclassifier
+{'base_score': 0.5,
+ 'booster': 'gbtree',
+ 'colsample_bylevel': 1,
+ 'colsample_bynode': 1,
+ 'colsample_bytree': 0.9,
+ 'eta': 0.3,
+ 'gamma': 5,
+ 'learning_rate': 0.1,
+ 'max_delta_step': 0,
+ 'max_depth': 0,
+ 'max_leaves': 255,
+ 'min_child_weight': 1,
+ 'missing': nan,
+ 'n_estimators': 25,
+ 'n_jobs': 1,
+ 'nthread': None,
+ 'objective': 'reg:logistic',
+ 'random_state': 0,
+ 'reg_alpha': 2.1875,
+ 'reg_lambda': 2.291666666666667,
+ 'scale_pos_weight': 1,
+ 'seed': None,
+ 'silent': None,
+ 'subsample': 1,
+ 'tree_method': 'auto',
+ 'verbose': -10,
+ 'verbosity': 0}
+
+31 - sparsenormalizer
+{'copy': True, 'norm': 'l2'}
+
+31 - xgboostclassifier
+{'base_score': 0.5,
+ 'booster': 'gbtree',
+ 'colsample_bylevel': 1,
+ 'colsample_bynode': 1,
+ 'colsample_bytree': 0.6,
+ 'eta': 0.1,
+ 'gamma': 0.01,
+ 'learning_rate': 0.1,
+ 'max_delta_step': 0,
+ 'max_depth': 9,
+ 'max_leaves': 511,
+ 'min_child_weight': 1,
+ 'missing': nan,
+ 'n_estimators': 10,
+ 'n_jobs': 1,
+ 'nthread': None,
+ 'objective': 'reg:logistic',
+ 'random_state': 0,
+ 'reg_alpha': 0,
+ 'reg_lambda': 1.4583333333333335,
+ 'scale_pos_weight': 1,
+ 'seed': None,
+ 'silent': None,
+ 'subsample': 1,
+ 'tree_method': 'auto',
+ 'verbose': -10,
+ 'verbosity': 0}
+
+33 - standardscalerwrapper
+{'class_name': 'StandardScaler',
+ 'copy': True,
+ 'module_name': 'sklearn.preprocessing._data',
+ 'with_mean': False,
+ 'with_std': False}
+
+33 - xgboostclassifier
+{'base_score': 0.5,
+ 'booster': 'gbtree',
+ 'colsample_bylevel': 1,
+ 'colsample_bynode': 1,
+ 'colsample_bytree': 0.5,
+ 'eta': 0.4,
+ 'gamma': 0,
+ 'learning_rate': 0.1,
+ 'max_delta_step': 0,
+ 'max_depth': 5,
+ 'max_leaves': 0,
+ 'min_child_weight': 1,
+ 'missing': nan,
+ 'n_estimators': 25,
+ 'n_jobs': 1,
+ 'nthread': None,
+ 'objective': 'reg:logistic',
+ 'random_state': 0,
+ 'reg_alpha': 0.7291666666666667,
+ 'reg_lambda': 2.3958333333333335,
+ 'scale_pos_weight': 1,
+ 'seed': None,
+ 'silent': None,
+ 'subsample': 0.9,
+ 'tree_method': 'auto',
+ 'verbose': -10,
+ 'verbosity': 0}
+
+24 - maxabsscaler
+{'copy': True}
+
+24 - lightgbmclassifier
+{'n_jobs': 1,
+ 'problem_info': ProblemInfo(
+    dataset_samples=79088,
+    dataset_features=38,
+    dataset_classes=2,
+    dataset_num_categorical=0,
+    dataset_categoricals=None,
+    pipeline_categoricals=None,
+    dataset_y_std=None,
+    dataset_uid=None,
+    subsampling=False,
+    task='classification',
+    metric=None,
+    num_threads=1,
+    pipeline_profile='none',
+    is_sparse=True,
+    runtime_constraints={'mem_in_mb': None, 'wall_time_in_s': None, 'total_wall_time_in_s': 31449600, 'cpu_time_in_s': None, 'num_processes': None, 'grace_period_in_s': None},
+    constraint_mode=1,
+    cost_mode=1,
+    training_percent=None,
+    num_recommendations=1,
+    model_names_whitelisted=None,
+    model_names_blacklisted=None,
+    kernel='linear',
+    subsampling_treatment='linear',
+    subsampling_schedule='hyperband_clip',
+    cost_mode_param=None,
+    iteration_timeout_mode=0,
+    iteration_timeout_param=None,
+    feature_column_names=None,
+    label_column_name=None,
+    weight_column_name=None,
+    cv_split_column_names=None,
+    enable_streaming=None,
+    timeseries_param_dict=None,
+    gpu_training_param_dict={'processing_unit_type': 'cpu'}
+),
+ 'random_state': None}
+
+29 - maxabsscaler
+{'copy': True}
+
+29 - randomforestclassifier
+{'bootstrap': False,
+ 'ccp_alpha': 0.0,
+ 'class_weight': None,
+ 'criterion': 'gini',
+ 'max_depth': None,
+ 'max_features': 0.05,
+ 'max_leaf_nodes': None,
+ 'max_samples': None,
+ 'min_impurity_decrease': 0.0,
+ 'min_impurity_split': None,
+ 'min_samples_leaf': 0.01,
+ 'min_samples_split': 0.01,
+ 'min_weight_fraction_leaf': 0.0,
+ 'n_estimators': 400,
+ 'n_jobs': 1,
+ 'oob_score': False,
+ 'random_state': None,
+ 'verbose': 0,
+ 'warm_start': False}
+```
+
+Finally, this is a screenshot of saving and registering the best model:
+
+![Automl saving model](images/7-automl-saving-model.png)
 
 ### Possible Impromevents for AutoML
 
 1. We could use a different primary metric as in some cases accuracy is not the best metric for all problems.
 2. Adding cross validations to the AutoML configuration may reduce the bias in the model, even though the training data is already balanced.
-
 
 ## Hyperparameter Tuning
 *TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
