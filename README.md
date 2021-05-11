@@ -682,7 +682,7 @@ policy = BanditPolicy(slack_factor = 0.1, evaluation_interval=1, delay_evaluatio
 - evaluation_interval: The frequency for applying the policy. It counts as one interval for each log of the primary metric by the script.
 - delay_evaluation: For the a specified number of intervals delays the first policy evaluation.
 
-For our estimator we are using Scikit learn with our train.py file, this file determines that we are going to use a logistic regression for our HyperDrive model.
+For our estimator we are using Scikit learn with our `train.py` file, this file determines that we are going to use a logistic regression for our HyperDrive model.
 
 Finally, for our HyperDrive configuration we define accuracy as our primary metric, we also define that we want to have up to 4 concurrent runs, and that we will limit our runs to 20.
 
@@ -734,9 +734,9 @@ To deploy the model we need the following:
 - Inference configuration, with entry script and environment dependencies.
 - Deployment configuration with Azure Container Instances.
 
-A scoring script is generated when a model is created. This describes the input data that model will expect and passes it to the model for prediction, and then it returns the results.
+A scoring script is generated when a model is created. This describes the input data that model will expect and passes it to the model for prediction, and then it returns the results. It can be downloaded with the following command: `best_run.download_file('outputs/scoring_file_v_1_0_0.py', 'scoring.py')`
 
-The environment can be retrieved by using the `best_run.get_environment()` command.
+The environment can be retrieved by using the `best_run.get_environment()` command, or can be dowloaded using the following command: `best_run.download_file('outputs/conda_env_v_1_0_0.yml', 'environment.yml')`
 
 For deployment we will use Azure Container Instances with the following configuration:
 
