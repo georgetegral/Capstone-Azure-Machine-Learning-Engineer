@@ -727,6 +727,8 @@ Finally, we save the best model
 ## Model Deployment
 *TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
 
+The best AutoML model had an accuracy of `0.6459`, while the best HyperDrive model had an accuracy of `0.6340`. we will be using the model with the most accuracy, that's why the Model Deployment part is in the `automl.ipynb` notebook.
+
 To deploy the model we need the following:
 - A trained model.
 - Inference configuration, with entry script and environment dependencies.
@@ -734,7 +736,7 @@ To deploy the model we need the following:
 
 A scoring script is generated when a model is created. This describes the input data that model will expect and passes it to the model for prediction, and then it returns the results.
 
-The environment can be retrieved by using the `best_run.get_environment()`
+The environment can be retrieved by using the `best_run.get_environment()` command.
 
 For deployment we will use Azure Container Instances with the following configuration:
 
@@ -743,6 +745,34 @@ For deployment we will use Azure Container Instances with the following configur
 - auth_enabled = True
 - enable_app_insights = True
 - description='Covid 19 ICU Prediction Model'
+
+Below there are screenshots of the model deployment with Python SDK.
+
+![Model Deployment 1](images/12-model-deployment-1.png)
+
+![Model Deployment 2](images/12-model-deployment-2.png)
+
+![Model Deployment 3](images/12-model-deployment-3.png)
+
+We can also see the endpoint in Azure ML Studio, with it's configuration and consuming instructions.
+
+![Model Deployment 4](images/12-model-deployment-4.png)
+
+![Model Deployment 5](images/12-model-deployment-5.png)
+
+![Model Deployment 6](images/12-model-deployment-6.png)
+
+![Model Deployment 7](images/12-model-deployment-7.png)
+
+## Model Consumption
+
+In this screenshots we can se the model consumption with Python SDK.
+
+![Model Consumption 1](images/13-model-consumption-1.png)
+
+![Model Consumption 2](images/13-model-consumption-2.png)
+
+![Model Consumption 3](images/13-model-consumption-3.png)
 
 ## Screen Recording
 This recording demostrates:
