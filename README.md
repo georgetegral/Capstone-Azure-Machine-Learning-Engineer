@@ -726,8 +726,6 @@ Finally, we save the best model
 4. Increasing maximum total runs to test more combinations of hyperparameters, even though this would mean more training time.
 
 ## Model Deployment
-*TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
-
 The best AutoML model had an accuracy of `0.6459`, while the best HyperDrive model had an accuracy of `0.6340`. we will be using the model with the most accuracy, that's why the Model Deployment part is in the `automl.ipynb` notebook.
 
 To deploy the model we need the following:
