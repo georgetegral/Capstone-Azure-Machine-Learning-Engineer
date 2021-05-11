@@ -237,9 +237,6 @@ This screenshot shows the configuration in the notebook.
 ![Automl configuration](images/1-automl-configuration.png)
 
 ### AutoML Results
-*TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
-
-*TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
 
 In our experiment we found that `VotingEnsemble` was the model with the most accuracy, with `0.6459`
 
@@ -660,7 +657,6 @@ Finally, this is a screenshot of saving and registering the best model:
 2. Adding cross validations to the AutoML configuration may reduce the bias in the model, even though the training data is already balanced.
 
 ## Hyperparameter Tuning
-*TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
 
 For this experiment we use logistic regression from the SKlearn framework with HyperDrive and hyperparameter tuning. There are two hyperparameters for this experiment:
 
@@ -684,10 +680,42 @@ policy = BanditPolicy(slack_factor = 0.1, evaluation_interval=1, delay_evaluatio
 - evaluation_interval: The frequency for applying the policy. It counts as one interval for each log of the primary metric by the script.
 - delay_evaluation: For the a specified number of intervals delays the first policy evaluation.
 
-### Hyperdrive Results
-*TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
+For our estimator we are using Scikit learn with our train.py file, this file determines that we are going to use a logistic regression for our HyperDrive model.
 
-*TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
+Finally, for our HyperDrive configuration we define accuracy as our primary metric, we also define that we want to have up to 4 concurrent runs, and that we will limit our runs to 20.
+
+This screenshot shows the configuration in the notebook.
+![HyperDrive configuration](images/8-hyperdrive-configuration.png)
+
+### Hyperdrive Results
+
+In our experiment we found that the model with `Regularization Strength: 1.0` and `Max Iterations: 40`had the most accuracy, with `0.6340`
+
+The following screenshots show the results of the HyperDrive Experiment
+
+![HyperDrive results 1](images/9-hyperdrive-results-1.png)
+
+![HyperDrive results 2](images/9-hyperdrive-results-2.png)
+
+![HyperDrive results 3](images/9-hyperdrive-results-3.png)
+
+![HyperDrive results 4](images/9-hyperdrive-results-4.png)
+
+Below are screenshots from the RunDetails widget, as well as a screenshot of the best model with it's hyperparameters
+
+![HyperDrive RunDetails 1](images/10-hyperdrive-rundetails-1.png)
+
+![HyperDrive RunDetails 2](images/10-hyperdrive-rundetails-2.png)
+
+![HyperDrive RunDetails 3](images/10-hyperdrive-rundetails-3.png)
+
+![HyperDrive RunDetails 4](images/10-hyperdrive-rundetails-4.png)
+
+![HyperDrive RunDetails 5](images/10-hyperdrive-rundetails-5.png)
+
+Finally, we save the best model
+
+![HyperDrive saving model](images/11-hyperdrive-saving-model.png)
 
 ### Possible Improvements for Hyperdrive
 
