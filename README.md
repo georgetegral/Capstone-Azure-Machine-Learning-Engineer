@@ -813,3 +813,4 @@ The recording is available from this URL: https://youtu.be/rrCruXYm6J4
 - [Azure bandit_policy documentation](https://www.rdocumentation.org/packages/azuremlsdk/versions/1.10.0/topics/bandit_policy)
 - [Define Bayesian sampling over a hyperparameter search space](https://azure.github.io/azureml-sdk-for-r/reference/bayesian_parameter_sampling.html)
 - [pprint library](https://docs.python.org/3/library/pprint.html)
+- [Data featurization in automated machine learning](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-auto-features)
