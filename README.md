@@ -20,6 +20,7 @@
     * [Possible Improvements for Hyperdrive](#Possible-Improvements-for-Hyperdrive)
 * [Model Deployment](#Model-Deployment)
 * [Screen Recording](#Screen-Recording)
+* [Future Work](#Future-Work)
 * [References](#References)
 ## Overview
 
@@ -766,7 +767,7 @@ We can also see the endpoint in Azure ML Studio, with it's configuration and con
 
 ## Model Consumption
 
-In this screenshots we can se the model consumption with Python SDK.
+In this screenshots we can see the model consumption with Python SDK.
 
 ![Model Consumption 1](images/13-model-consumption-1.png)
 
@@ -782,6 +783,11 @@ This recording demostrates:
 - Demo of a sample request sent to the endpoint and its response
 
 The recording is available from this URL: https://youtu.be/rrCruXYm6J4
+
+## Future Work
+- More research can be done to check if another metric is better for this specific problem.
+- Deployment of the best model into ONNX format.
+- Deployment of model into Edge using Azure IoT Edge
 
 ## References
 - [Mexican Government's General Directorate of Epidemiology COVID-19 Open Data](https://www.gob.mx/salud/documentos/datos-abiertos-152127)
